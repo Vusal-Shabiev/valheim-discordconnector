@@ -15,6 +15,7 @@ internal class MessagesConfig
     private const string PLAYER_FIRSTS_MESSAGES = "Messages.PlayerFirsts";
     private const string EVENT_MESSAGES = "Messages.Events";
     private const string BOARD_MESSAGES = "Messages.LeaderBoards";
+    private const string BOSS_MESSAGES = "Messages.Boss";
 
     // Server Messages
     private ConfigEntry<string> serverLaunchMessage;
@@ -43,6 +44,11 @@ internal class MessagesConfig
     private ConfigEntry<string> eventPausedMessage;
     private ConfigEntry<string> eventStopMessage;
     private ConfigEntry<string> eventResumedMessage;
+
+    // Boss Messages
+    private ConfigEntry<string> bossStartMessage;
+    private ConfigEntry<string> bossStopMessage;
+  
 
     // Board Messages
     private ConfigEntry<string> leaderBoardTopPlayersMessage;
@@ -186,6 +192,22 @@ internal class MessagesConfig
             "The special string %EVENT_START_MSG% will be replaced with the message that is displayed on the screen when the event starts." + Environment.NewLine +
             "The special string %EVENT_END_MSG% will be replaced with the message that is displayed on the screen when the event ends."); // + Environment.NewLine +
                                                                                                                                           // "The special string %PLAYERS% will be replaced with a list of players in the event area."); //! Removed due to unreliability
+        // Boss Messages
+
+        bossStartMessage = config.Bind<string>(BOSS_MESSAGES,
+            "Boss Start Message",
+            "**Event**: %BOSS_MSG%",
+            "Set the message that will be sent when a boss event starts on the server. Sending the coordinates is enabled by default in the toggles config." + Environment.NewLine +
+            "If you want to have this choose from a variety of messages at random, separate each message with a semicolon ';'" + Environment.NewLine +
+            "The special string %BOSS_MSG% will be replaced with the message that is displayed on the screen when the event starts.");
+        bossStopMessage = config.Bind<string>(BOSS_MESSAGES,
+            "Boss Stop Message",
+            "**Event**: %BOSS_MSG%",
+            "Set the message that will be sent when a boss event stops on the server. Sending the coordinates is enabled by default in the toggles config." + Environment.NewLine +
+            "If you want to have this choose from a variety of messages at random, separate each message with a semicolon ';'" + Environment.NewLine +
+            "The special string %BOSS_MSG% will be replaced with the message that is displayed on the screen when the event stops.");
+
+
 
         // Board Messages
         leaderBoardTopPlayersMessage = config.Bind<string>(BOARD_MESSAGES,
@@ -248,6 +270,12 @@ internal class MessagesConfig
         jsonString += $"\"eventStopMessage\":\"{eventStopMessage.Value.Replace("\"", "\\\"")}\"";
         jsonString += "},";
 
+        jsonString += $"\"{BOSS_MESSAGES}\":{{";
+        jsonString += $"\"bossStartMessage\":\"{bossStartMessage.Value.Replace("\"", "\\\"")}\",";
+        jsonString += $"\"bossStopMessage\":\"{bossStopMessage.Value.Replace("\"", "\\\"")}\"";
+        jsonString += "},";
+
+
         jsonString += $"\"{BOARD_MESSAGES}\":{{";
         jsonString += $"\"leaderBoardTopPlayersMessage\":\"{leaderBoardTopPlayersMessage.Value.Replace("\"", "\\\"")}\",";
         jsonString += $"\"leaderBoardBottomPlayersMessage\":\"{leaderBoardBottomPlayersMessage.Value.Replace("\"", "\\\"")}\",";
@@ -302,6 +330,10 @@ internal class MessagesConfig
     public string EventPausedMessage => GetRandomStringFromValue(eventPausedMessage);
     public string EventStopMessage => GetRandomStringFromValue(eventStopMessage);
     public string EventResumedMessage => GetRandomStringFromValue(eventResumedMessage);
+
+    // Messages.Boss
+    public string BossStartMessage => GetRandomStringFromValue(bossStartMessage);
+    public string BossStopMessage => GetRandomStringFromValue(bossStopMessage);
 
     // Messages.LeaderBoards
     public string LeaderBoardTopPlayerHeading => GetRandomStringFromValue(leaderBoardTopPlayersMessage);

@@ -15,6 +15,8 @@ public class Webhook
         EventPaused,
         EventResumed,
         EventStop,
+        BossStart,
+        BossStop,
         PlayerJoin,
         PlayerLeave,
         PlayerShout,
@@ -34,6 +36,7 @@ public class Webhook
         ALL,
         ServerLifecycle,
         EventLifecycle,
+        BossLifecycle,
         PlayerAll,
         PlayerFirstAll,
         LeaderboardsAll,
@@ -79,6 +82,11 @@ public class Webhook
                 return Event.EventResumed;
             case "eventStop":
                 return Event.EventStop;
+
+            case "bossStart":
+                return Event.BossStart;
+            case "bossStop":
+                return Event.BossStop;
 
             case "playerJoin":
                 return Event.PlayerJoin;
@@ -295,6 +303,16 @@ class WebhookEntry
             {
                 return true;
             }
+        }
+        if (FireOnEvents.Contains(Webhook.Event.BossLifecycle))
+        {
+            Plugin.StaticLogger.LogDebug($"Checking if {ev} is part of BossLifecycle");
+            if (
+                ev == Webhook.Event.BossStart ||
+                ev == Webhook.Event.BossStop)
+            {
+                return true;
+            }               
         }
         if (FireOnEvents.Contains(Webhook.Event.ServerLifecycle))
         {

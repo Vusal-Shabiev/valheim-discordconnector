@@ -22,6 +22,7 @@ internal static class MessageTransformer
     private const string EVENT_START_MSG = "%EVENT_START_MSG%";
     private const string EVENT_END_MSG = "%EVENT_END_MSG%";
     private const string EVENT_MSG = "%EVENT_MSG%";
+    private const string BOSS_MSG = "%BOSS_MSG%";    
     private const string EVENT_PLAYERS = "%PLAYERS%";
     private const string N = "%N%";
     private const string WORLD_NAME = "%WORLD_NAME%";

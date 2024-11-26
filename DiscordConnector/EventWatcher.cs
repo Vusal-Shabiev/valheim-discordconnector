@@ -29,6 +29,7 @@ internal class EventWatcher
         public static UnityEngine.Vector3 Pos => HaveActiveEvent ? Event.m_pos : new UnityEngine.Vector3(0, 0, 0);
         public static string EndMessage => HaveActiveEvent ? Localization.instance.Localize(Event.m_endMessage) : "";
         public static string StartMessage => HaveActiveEvent ? Localization.instance.Localize(Event.m_startMessage) : "";
+        
 
         public static string[] InvolvedPlayersList()
         {
@@ -337,4 +338,33 @@ internal class EventWatcher
             }
         }
     }
+
+    internal void TriggerBossEventStart(string bossName, string bossMessage) // Vector3 bossPosition
+    {
+        if (Plugin.StaticConfig.BossStartMessageEnabled)
+        {
+            string message = MessageTransformer.FormatEventMessage(
+                Plugin.StaticConfig.BossStartMessage,
+                bossName,
+                bossMessage
+                // bossPosition
+            );
+
+            if (Plugin.StaticConfig.DiscordEmbedsEnabled || !message.Contains("%POS%"))
+            {
+                DiscordApi.SendMessage(Webhook.Event.BossStart, message); // bossPosition
+            }
+            else
+            {
+                message = MessageTransformer.FormatEventMessage(
+                    Plugin.StaticConfig.BossStartMessage,
+                    bossName,
+                    bossMessage
+                    // bossPosition
+                );
+                DiscordApi.SendMessage(Webhook.Event.BossStart, message);
+            }
+        }
+    }
+
 }

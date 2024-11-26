@@ -29,6 +29,8 @@ internal class TogglesConfig
     private ConfigEntry<bool> eventPausedMessageToggle;
     private ConfigEntry<bool> eventStopMessageToggle;
     private ConfigEntry<bool> eventResumedMessageToggle;
+    private ConfigEntry<bool> bossStartMessageToggle;
+    private ConfigEntry<bool> bossStopMessageToggle;
     private ConfigEntry<bool> chatShoutAllCaps;
     private ConfigEntry<bool> newDayNumberToggle;
 
@@ -42,6 +44,8 @@ internal class TogglesConfig
     private ConfigEntry<bool> eventPausedPosToggle;
     private ConfigEntry<bool> eventStopPosToggle;
     private ConfigEntry<bool> eventResumedPosToggle;
+    private ConfigEntry<bool> bossStartPosToggle;
+    private ConfigEntry<bool> bossStopPosToggle;
 
     // Statistic collection settings
     private ConfigEntry<bool> collectStatsJoins;
@@ -136,6 +140,14 @@ internal class TogglesConfig
             "Event Resumed Notifications",
             true,
             "If enabled, this will send a message to Discord when a random event is resumed.");
+        bossStartMessageToggle = config.Bind<bool>(MESSAGES_TOGGLES,
+            "Boss Start Notifications",
+            true,
+            "If enabled, this will send a message to Discord when a boss event starts on the server.");
+        bossStopMessageToggle = config.Bind<bool>(MESSAGES_TOGGLES,
+            "Boss Start Notifications",
+            true,
+            "If enabled, this will send a message to Discord when a boss event stops on the server.");
         chatShoutAllCaps = config.Bind<bool>(MESSAGES_TOGGLES,
             "Send All Caps Shout Messages",
             false,
@@ -182,6 +194,15 @@ internal class TogglesConfig
             "Event Resumed Messages Position Notifications",
             true,
             "If enabled, this will include the coordinates of the random event when the resumed message is sent.");
+        bossStartPosToggle = config.Bind<bool>(POSITION_TOGGLES,
+            "Boss Start messages Position Notifications",
+            true,
+            "If enabled, this will include the coordinations of the boss event when the start message is sent.");
+        bossStopPosToggle = config.Bind<bool>(POSITION_TOGGLES,
+            "Boss Stop messages Position Notifications",
+            true,
+            "If enabled, this will include the coordinations of the boss event when the stop message is sent.");
+
 
         // Statistic Settings
         collectStatsDeaths = config.Bind<bool>(STATS_TOGGLES,
@@ -269,6 +290,8 @@ internal class TogglesConfig
         jsonString += $"\"eventPausedEnabled\":\"{EventStopMessageEnabled}\",";
         jsonString += $"\"eventStoppedEnabled\":\"{EventPausedMessageEnabled}\",";
         jsonString += $"\"eventResumedEnabled\":\"{EventResumedMessageEnabled}\",";
+        jsonString += $"\"bossStartEnabled\":\"{BossStartMessageEnabled}\",";
+        jsonString += $"\"bossStopEnabled\":\"{BossStopMessageEnabled}\",";
         jsonString += $"\"chatShoutAllCaps\":\"{ChatShoutAllCaps}\",";
         jsonString += $"\"newDayNumberToggle\":\"{NewDayNumberEnabled}\"";
         jsonString += "},";
@@ -283,6 +306,8 @@ internal class TogglesConfig
         jsonString += $"\"eventStopPosEnabled\":\"{EventStopPosEnabled}\",";
         jsonString += $"\"eventPausedPosEnabled\":\"{EventPausedPosEnabled}\",";
         jsonString += $"\"eventResumedPosEnabled\":\"{EventResumedPosEnabled}\"";
+        jsonString += $"\"bossStartPosEnabled\":\"{BossStartPosEnabled}\",";
+        jsonString += $"\"bossStopPosEnabled\":\"{BossStopPosEnabled}\",";
         jsonString += "},";
 
         jsonString += $"\"{STATS_TOGGLES}\":{{";
@@ -342,10 +367,14 @@ internal class TogglesConfig
     public bool EventPausedMessageEnabled => eventPausedMessageToggle.Value;
     public bool EventResumedMessageEnabled => eventResumedMessageToggle.Value;
     public bool EventStopMessageEnabled => eventStopMessageToggle.Value;
+    public bool BossStartMessageEnabled => bossStartMessageToggle.Value;
+    public bool BossStopMessageEnabled => bossStopMessageToggle.Value;
     public bool EventStartPosEnabled => eventStartPosToggle.Value;
     public bool EventPausedPosEnabled => eventPausedPosToggle.Value;
     public bool EventStopPosEnabled => eventStopPosToggle.Value;
     public bool EventResumedPosEnabled => eventResumedPosToggle.Value;
+    public bool BossStartPosEnabled => bossStartPosToggle.Value;
+    public bool BossStopPosEnabled => bossStopPosToggle.Value;
     public bool DebugEveryPlayerPosCheck => debugEveryEventPlayerPosCheck.Value;
     public bool DebugEveryEventCheck => debugEveryEventCheck.Value;
     public bool DebugEveryEventChange => debugEventChanges.Value;

@@ -170,6 +170,8 @@ internal class PluginConfig
     public bool EventStopMessageEnabled => togglesConfig.EventStopMessageEnabled;
     public bool EventPausedMessageEnabled => togglesConfig.EventPausedMessageEnabled;
     public bool EventResumedMessageEnabled => togglesConfig.EventResumedMessageEnabled;
+    public bool BossStartMessageEnabled => togglesConfig.BossStartMessageEnabled;
+    public bool BossStopMessageEnabled => togglesConfig.BossStopMessageEnabled;
     public bool ChatShoutAllCaps => togglesConfig.ChatShoutAllCaps;
     public bool NewDayNumberEnabled => togglesConfig.NewDayNumberEnabled;
 
@@ -190,6 +192,8 @@ internal class PluginConfig
     public bool EventStopPosEnabled => mainConfig.SendPositionsEnabled && togglesConfig.EventStopPosEnabled;
     public bool EventPausedPosEnabled => mainConfig.SendPositionsEnabled && togglesConfig.EventPausedPosEnabled;
     public bool EventResumedPosEnabled => mainConfig.SendPositionsEnabled && togglesConfig.EventResumedPosEnabled;
+    public bool BossStartPosEnabled => mainConfig.SendPositionsEnabled && togglesConfig.BossStartMessageEnabled;
+    public bool BossStopPosEnabled => mainConfig.SendPositionsEnabled && togglesConfig.BossStopMessageEnabled;
 
     // Main Config
     public string DefaultWebhookUsernameOverride => mainConfig.DefaultWebhookUsernameOverride;
@@ -243,6 +247,10 @@ internal class PluginConfig
     public string EventStopMessage => messagesConfig.EventStopMessage;
     public string EventPausedMessage => messagesConfig.EventPausedMessage;
     public string EventResumedMessage => messagesConfig.EventResumedMessage;
+
+    // Messages.Boss
+    public string BossStartMessage => messagesConfig.BossStartMessage;
+    public string BossStopMessage => messagesConfig.BossStopMessage;
 
     // Variable Definition
     public string UserVariable => variableConfig.UserVariable;
